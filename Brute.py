@@ -8,13 +8,25 @@ class Brute:
         self.total_xp = 0
         self.xp = 0
         self.xp_to_level = 10
-        self.max_hp = random.randint(80, 120)
+        self.max_hp = random.randint(50, 65)
         self.current_hp = self.max_hp
-        self.strength = random.randint(5, 15)
-        self.agility = random.randint(5, 15)
-        self.speed = random.randint(5, 15)
+    
         self.weapons = []
+        
+        def generate_balanced_stats():
+            while True:
+                stats = [
+                    random.randint(5, 10),
+                    random.randint(5, 10),
+                    random.randint(5, 10)
+                ]
+                total = sum(stats)
+                if 20 <= total <= 22:
+                    return stats
 
+        self.strength, self.agility, self.speed = generate_balanced_stats()
+    
+        
     def is_alive(self):
         return self.current_hp > 0
 

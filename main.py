@@ -42,6 +42,8 @@ def simulate_fight(brute1, brute2):
 
 brute_a = load_brute('Alex.json')
 brute_b = load_brute('Steve.json')
+brute_a = generate_random_brute("Alex")
+brute_b = generate_random_brute("Steve")
 
 simulate_fight(brute_a, brute_b)
 

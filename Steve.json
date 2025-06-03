@@ -1,12 +1,12 @@
 {
   "name": "Steve",
-  "level": 1,
-  "xp": 6,
-  "xp_to_level": 4,
-  "max_hp": 109,
-  "current_hp": 109,
-  "strength": 5,
-  "agility": 11,
-  "speed": 8,
+  "level": 2,
+  "xp": 0,
+  "xp_to_level": 15,
+  "max_hp": 103,
+  "current_hp": 103,
+  "strength": 13,
+  "agility": 7,
+  "speed": 17,
   "weapons": []
 }

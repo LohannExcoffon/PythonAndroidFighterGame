@@ -1,0 +1,12 @@
+{
+  "name": "Alex",
+  "level": 2,
+  "xp": 10,
+  "xp_to_level": 5,
+  "max_hp": 133,
+  "current_hp": 133,
+  "strength": 14,
+  "agility": 9,
+  "speed": 12,
+  "weapons": []
+}

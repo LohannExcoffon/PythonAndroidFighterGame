@@ -40,12 +40,17 @@ def simulate_fight(brute1, brute2):
     print(f"\n🏆 {winner.name} wins the battle!")
 
 
-brute_a = load_brute('Alex.json')
-brute_b = load_brute('Steve.json')
-brute_a = generate_random_brute("Alex")
-brute_b = generate_random_brute("Steve")
+try:
+    brute_a = load_brute("Steve")
+except:
+    brute_a = generate_random_brute("Steve")
+
+try:
+    brute_b = load_brute("Alex")
+except:
+    brute_b = generate_random_brute("Alex")
 
 simulate_fight(brute_a, brute_b)
 
-save_brute(brute_a, f"{brute_a.name}.json")
-save_brute(brute_b, f"{brute_b.name}.json")
+save_brute(brute_a)
+save_brute(brute_b)

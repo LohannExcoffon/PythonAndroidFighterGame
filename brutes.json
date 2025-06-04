@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Steve",
+    "level": 1,
+    "xp": 9,
+    "xp_to_level": 1,
+    "max_hp": 56,
+    "current_hp": 56,
+    "strength": 5,
+    "agility": 10,
+    "speed": 7,
+    "weapons": []
+  },
+  {
+    "name": "Alex",
+    "level": 3,
+    "xp": 0,
+    "xp_to_level": 30,
+    "max_hp": 87,
+    "current_hp": 87,
+    "strength": 12,
+    "agility": 11,
+    "speed": 10,
+    "weapons": []
+  }
+]

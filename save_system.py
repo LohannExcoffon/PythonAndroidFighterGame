@@ -1,6 +1,6 @@
 import json
 import os
-from Brute import Brute
+from Brute import *
 
 
 FILEPATH = "brutes.json"

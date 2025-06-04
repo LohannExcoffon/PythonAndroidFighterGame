@@ -1,14 +1,55 @@
 import random
-from Brute import Brute 
-from save_system import save_brute
+import os
+import json
+from Brute import Brute
 from save_system import load_brute
+from save_system import save_brute
+
+FILEPATH = "brutes.json"
 
 def generate_random_brute(name):
+    """
+    Create a new Brute instance with randomized base stats that add up to ~30.
+
+    The Brute is initialized with:
+    - Randomized HP, strength, agility, and speed
+    - Default level, XP, and no weapons or skills
+    - The given name
+
+    Parameters:
+        name: str - The unique name of the Brute to create
+
+    Returns:
+        Brute: A new Brute object
+    """
+    
+    # Check for uniqueness of inputted name
+    if os.path.exists(FILEPATH):
+        with open(FILEPATH, 'r') as f:
+            existing_data = json.load(f)
+        for entry in existing_data:
+            if entry['name'].lower() == name.lower():
+                print(f"Brute name '{name}' is already taken.")
+                return None
+            
     brute = Brute(name)
     return brute
 
+def updateRivalry(winner, loser):
+    if loser.name in winner.winPerBrute:
+        winner.winPerBrute[loser.name] += 1
+    else:
+        loser.winPerBrute[winner.name] = 0
+        winner.winPerBrute[loser.name] = 1
+        
+def printRivalry(brute1,brute2):
+    if brute2.name in brute1.winPerBrute:
+        print(f"You have a rivalry of {brute1.winPerBrute[brute2.name]}W - {brute2.winPerBrute[brute1.name]}L against {brute2.name}")
+    else:
+        print(f"You have a rivalry of 0W - 0L against {brute2.name}")
 
 def simulate_fight(brute1, brute2):
+    printRivalry(brute1,brute2)
     print("FIGHT START!")
     print(brute1)
     print(brute2)
@@ -46,7 +87,10 @@ def simulate_fight(brute1, brute2):
     loser = brute2 if winner == brute1 else brute1
     brute1.current_hp = brute1.max_hp
     brute2.current_hp = brute2.max_hp
-    winner.gain_xp(10)
+    winner.wins += 1
+    loser.losses += 1
+    updateRivalry(winner, loser)
+    winner.gain_xp(int((loser.level / winner.level) * 10))
     loser.gain_xp(3)
     print(f"\n🏆 {winner.name} wins the battle!")
 

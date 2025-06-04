@@ -10,6 +10,9 @@ class Brute:
         self.xp_to_level = 10
         self.max_hp = random.randint(50, 65)
         self.current_hp = self.max_hp
+        self.wins = 0
+        self.losses = 0
+        self.winPerBrute = {}
     
         self.weapons = []
         
@@ -48,10 +51,10 @@ class Brute:
         self.level += 1
         self.xp_to_level = int(self.xp * 1.5)
         self.xp = 0
-        print(f"{self.name} leveled up to Lv{self.level}!")
+        print(f"{self.name} leveled up to level {self.level}!")
 
         # Increase stats
-        hp_gain = random.randint(10, 20)
+        hp_gain = random.randint(4, 6)
         str_gain = random.randint(1, 3)
         agi_gain = random.randint(1, 3)
         spd_gain = random.randint(1, 3)
@@ -75,6 +78,9 @@ class Brute:
             'strength': self.strength,
             'agility': self.agility,
             'speed': self.speed,
+            'wins': self.wins,
+            'losses': self.losses,
+            'winPerBrute': self.winPerBrute,
             'weapons': self.weapons,
         }
 
@@ -89,5 +95,8 @@ class Brute:
         b.strength = data['strength']
         b.agility = data['agility']
         b.speed = data['speed']
+        b.wins = data['wins']
+        b.losses = data['losses']
+        b.winPerBrute = data['winPerBrute']
         b.weapons = data['weapons']
         return b

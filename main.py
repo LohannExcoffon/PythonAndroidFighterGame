@@ -36,6 +36,13 @@ def generate_random_brute(name):
     return brute
 
 def updateRivalry(winner, loser):
+    """
+    Updates the rivalry statistics between two Brutes.
+    
+    Parameters:
+        winner: Brute - The Brute who won the match
+        loser: Brute - The Brute who lost the match
+    """
     if loser.name in winner.winPerBrute:
         winner.winPerBrute[loser.name] += 1
     else:
@@ -43,6 +50,13 @@ def updateRivalry(winner, loser):
         winner.winPerBrute[loser.name] = 1
         
 def printRivalry(brute1,brute2):
+    """
+    Displays the win-loss record between two Brutes.
+    
+    Parameters:
+        brute1: Brute - The Brute for whom the rivalry is being displayed
+        brute2: Brute - The opponent Brute
+    """
     if brute2.name in brute1.winPerBrute:
         print(f"You have a rivalry of {brute1.winPerBrute[brute2.name]}W - {brute2.winPerBrute[brute1.name]}L against {brute2.name}")
     else:

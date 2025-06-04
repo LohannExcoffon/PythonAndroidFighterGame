@@ -3,20 +3,53 @@ import json
 
 class Brute:
     def __init__(self, name):
+        """
+        Initializes a new Brute with randomized base stats and default attributes.
+        
+        Parameters:
+            name: str - The name chosen for the Brute being initialized
+        """
+        
+        # The name of the Brute.
         self.name = name
+        
+        # Level of the Brute. Initialized at level 1
         self.level = 1
+        
+        # Total XP earned across all levels
         self.total_xp = 0
+        
+        # Current XP toward the next level
         self.xp = 0
+        
+        # XP required to reach the next level
         self.xp_to_level = 10
+        
+        # Maximum health points. Initialized as random int
         self.max_hp = random.randint(50, 65)
+        
+        # Current health points. To be changed during a fight. Initially maxed.
         self.current_hp = self.max_hp
+        
+        # Number of fights won
         self.wins = 0
+        
+        # Number of fights lost
         self.losses = 0
+        
+        # Dictionary storing win counts versus specific opponents
         self.winPerBrute = {}
     
+        # List of weapons held by the Brute
         self.weapons = []
         
         def generate_balanced_stats():
+            """
+            Generates a set of the three combat stats (strength, agility, speed).
+            
+            Returns:
+                list[int]: A list of three integers representing [strength, agility, speed]
+            """
             while True:
                 stats = [
                     random.randint(5, 10),
@@ -27,16 +60,35 @@ class Brute:
                 if 20 <= total <= 22:
                     return stats
 
+        # Base Brute statistics. Initially randomized within a range. 
         self.strength, self.agility, self.speed = generate_balanced_stats()
     
         
     def is_alive(self):
+        """
+        Returns whether the Brute is still alive.
+
+        Returns:
+            bool: True if current HP is greater than zero, else False
+        """
         return self.current_hp > 0
 
     def __str__(self):
+        """
+        Returns a string summary of the Brute's stats and status.
+
+        Returns:
+            str: A string showing name, level, HP, strength, agility, and speed
+        """
         return f"{self.name} (Lv{self.level}) [HP: {self.current_hp}/{self.max_hp}, STR: {self.strength}, AGI: {self.agility}, SPD: {self.speed}]"
     
     def gain_xp(self, amount):
+        """
+        Increases the Brute's XP by the given amount and handles leveling up if needed
+
+        Parameters:
+            amount: int - Amount of XP to add
+        """
         self.total_xp += amount
         self.xp += amount
         self.xp_to_level -= amount
@@ -48,6 +100,14 @@ class Brute:
             
             
     def level_up(self):
+        """
+        Levels up the Brute and increase statistics.
+
+        - Increases level by 1.
+        - Recalculates XP needed for the next level.
+        - Randomly increases max HP, strength, agility, and speed.
+        - Restores current HP to new max HP.
+        """
         self.level += 1
         self.xp_to_level = int(self.xp * 1.5)
         self.xp = 0
@@ -68,6 +128,12 @@ class Brute:
         print(f"{self.name}'s stats increased! +{hp_gain} HP, +{str_gain} STR, +{agi_gain} AGI, +{spd_gain} SPD")
         
     def to_dict(self):
+        """
+        Serializes the Brute object into a dictionary for JSON storage.
+
+        Returns:
+            dict: A dictionary representation of the Brute's state
+        """
         return {
             'name': self.name,
             'level': self.level,
@@ -86,6 +152,15 @@ class Brute:
 
     @staticmethod
     def from_dict(data):
+        """
+        Creates a Brute instance from a dictionary
+
+        Parameters:
+            data: dict - A dictionary containing Brute attributes
+
+        Returns:
+            Brute: A Brute object with attributes loaded from the dictionary
+        """
         b = Brute(data['name'])
         b.level = data['level']
         b.xp = data['xp']

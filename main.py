@@ -23,9 +23,20 @@ def simulate_fight(brute1, brute2):
     turn = 1
     while brute1.is_alive() and brute2.is_alive():
         print(f"Turn {turn}: {attacker.name} attacks {defender.name}")
-        base_damage = attacker.strength + random.randint(0, 5)
+        base_damage = attacker.strength + random.randint(0, int(attacker.strength / 5))
         defender.current_hp -= base_damage
         print(f"{attacker.name} dealt {base_damage} damage")
+        
+        # Agility difference based extra turn logic
+        agi_diff = attacker.agility - defender.agility
+        if agi_diff > 0:
+            chance = min(0.25, agi_diff * 0.02)
+        else:
+            chance = random.randint(2,6)/100  # lower chance, max ~5%
+        print(chance)
+        if random.random() < chance:
+            print(f"{attacker.name} gets a bonus strike!")
+            continue  # attacker goes again
         
         # Swap attacker/defender
         attacker, defender = defender, attacker

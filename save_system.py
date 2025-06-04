@@ -24,8 +24,6 @@ def save_brute(brute, filepath=FILEPATH):
     # Save updated list
     with open(filepath, 'w') as f:
         json.dump(data, f, indent=2)
-    
-    print(f"✅ Saved/Updated brute '{brute.name}' in {filepath}")
 
 def load_brute(name, filepath=FILEPATH):
     if not os.path.exists(filepath):

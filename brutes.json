@@ -1,16 +1,16 @@
 [
   {
     "name": "Steve",
-    "level": 1,
-    "xp": 6,
-    "xp_to_level": 4,
-    "max_hp": 59,
-    "current_hp": 59,
-    "strength": 6,
-    "agility": 6,
-    "speed": 10,
+    "level": 2,
+    "xp": 0,
+    "xp_to_level": 18,
+    "max_hp": 64,
+    "current_hp": 64,
+    "strength": 7,
+    "agility": 8,
+    "speed": 9,
     "wins": 0,
-    "losses": 2,
+    "losses": 4,
     "winPerBrute": {
       "Alex": 0
     },
@@ -18,18 +18,18 @@
   },
   {
     "name": "Alex",
-    "level": 2,
-    "xp": 5,
-    "xp_to_level": 10,
-    "max_hp": 66,
-    "current_hp": 66,
-    "strength": 11,
-    "agility": 8,
-    "speed": 9,
-    "wins": 2,
+    "level": 3,
+    "xp": 0,
+    "xp_to_level": 22,
+    "max_hp": 75,
+    "current_hp": 75,
+    "strength": 8,
+    "agility": 5,
+    "speed": 11,
+    "wins": 4,
     "losses": 0,
     "winPerBrute": {
-      "Steve": 2
+      "Steve": 4
     },
     "weapons": []
   }

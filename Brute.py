@@ -1,5 +1,6 @@
 import random
 import json
+from Upgrade import Upgrade
 
 class Brute:
     def __init__(self, name):
@@ -113,20 +114,35 @@ class Brute:
         self.xp = 0
         print(f"{self.name} leveled up to level {self.level}!")
 
+        # Generate upgrade options
+        options = generate_upgrade_option()
+        option1 = options[0]
+        option2 = options[1]
+        
+        print("\nChoose your upgrade:")
+        print(f"1) {option1}")
+        print(f"2) {option2}")
+
+        # Get user input
+        choice = input("Enter 1 or 2: ").strip()
+        while choice not in {"1", "2"}:
+            choice = input("Invalid input. Enter 1 or 2: ").strip()
+
+        chosen = option1 if choice == "1" else option2
+        chosen.apply(self)
+        print(f"{self.name} received upgrade: {chosen}")
+        
         # Increase stats
         hp_gain = random.randint(4, 6)
         str_gain = random.randint(1, 3)
         agi_gain = random.randint(1, 3)
         spd_gain = random.randint(1, 3)
 
-        self.max_hp += hp_gain
+        self.max_hp += 5
         self.current_hp = self.max_hp
-        self.strength += str_gain
-        self.agility += agi_gain
-        self.speed += spd_gain
 
         print(f"{self.name}'s stats increased! +{hp_gain} HP, +{str_gain} STR, +{agi_gain} AGI, +{spd_gain} SPD")
-        
+    
     def to_dict(self):
         """
         Serializes the Brute object into a dictionary for JSON storage.
@@ -175,3 +191,36 @@ class Brute:
         b.winPerBrute = data['winPerBrute']
         b.weapons = data['weapons']
         return b
+
+def generate_upgrade_option():
+    
+    commonUpgrades = [Upgrade(2,0,0,0),Upgrade(0,2,0,0),Upgrade(0,0,2,0),
+                Upgrade(1,1,0,0),Upgrade(1,0,1,0),Upgrade(0,1,1,0),
+                Upgrade(1,1,1,0),Upgrade(0,0,0,3)]
+    uncommonUpgrades = [Upgrade(2,1,0,0),Upgrade(2,0,1,0),Upgrade(1,2,0,0),
+                        Upgrade(0,2,1,0),Upgrade(1,0,2,0),Upgrade(0,1,2,0),
+                        Upgrade(3,0,0,0),Upgrade(0,3,0,0),Upgrade(0,0,3,0),
+                        Upgrade(2,2,0,0),Upgrade(2,0,2,0),Upgrade(0,2,2,0),
+                        Upgrade(1,0,0,3),Upgrade(0,1,0,3),Upgrade(0,0,1,3)]
+    rareUpgrades = [Upgrade(1,1,0,3),Upgrade(1,0,1,3),Upgrade(0,1,1,3),
+                    Upgrade(0,0,0,5),Upgrade(2,2,0,0),Upgrade(0,2,2,0),
+                    Upgrade(2,0,2,0)]
+    epicUpgrades = []
+    legendaryUpgrades = []
+    mythicalUpgrades = []
+    impossibleUpgrades = []
+
+    # Weighted selection pool
+    all_upgrades = (
+        random.choices(commonUpgrades, k=10) +
+        random.choices(uncommonUpgrades, k=4) +
+        random.choices(rareUpgrades, k=1)
+    )
+
+    # Pick two distinct options
+    option1 = random.choice(all_upgrades)
+    option2 = random.choice(all_upgrades)
+    while option2.name == option1.name:  # avoid duplicate options
+        option2 = random.choice(all_upgrades)
+
+    return [option1, option2]

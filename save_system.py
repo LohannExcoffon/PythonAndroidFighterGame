@@ -2,7 +2,6 @@ import json
 import os
 from Brute import *
 
-
 FILEPATH = "brutes.json"
 
 def save_brute(brute, filepath=FILEPATH):

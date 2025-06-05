@@ -2,10 +2,12 @@ import random
 import os
 import json
 from Brute import Brute
+from Upgrade import Upgrade
 from save_system import load_brute
 from save_system import save_brute
 
 FILEPATH = "brutes.json"
+
 
 def generate_random_brute(name):
     """
@@ -34,7 +36,7 @@ def generate_random_brute(name):
             
     brute = Brute(name)
     return brute
-
+    
 def updateRivalry(winner, loser):
     """
     Updates the rivalry statistics between two Brutes.

@@ -131,17 +131,9 @@ class Brute:
         chosen = option1 if choice == "1" else option2
         chosen.apply(self)
         print(f"{self.name} received upgrade: {chosen}")
-        
-        # Increase stats
-        hp_gain = random.randint(4, 6)
-        str_gain = random.randint(1, 3)
-        agi_gain = random.randint(1, 3)
-        spd_gain = random.randint(1, 3)
 
         self.max_hp += 5
         self.current_hp = self.max_hp
-
-        print(f"{self.name}'s stats increased! +{hp_gain} HP, +{str_gain} STR, +{agi_gain} AGI, +{spd_gain} SPD")
     
     def to_dict(self):
         """
@@ -210,17 +202,25 @@ def generate_upgrade_option():
     mythicalUpgrades = []
     impossibleUpgrades = []
 
-    # Weighted selection pool
-    all_upgrades = (
-        random.choices(commonUpgrades, k=10) +
-        random.choices(uncommonUpgrades, k=4) +
-        random.choices(rareUpgrades, k=1)
-    )
+    # Step 1: Choose rarity
+    rarity = random.choices(
+        population=["common", "uncommon", "rare"],
+        weights=[70, 25, 5],
+        k=1
+    )[0]
+
+    # Step 2: Select pool based on rarity
+    if rarity == "common":
+        pool = commonUpgrades
+    elif rarity == "uncommon":
+        pool = uncommonUpgrades
+    else:
+        pool = rareUpgrades
 
     # Pick two distinct options
-    option1 = random.choice(all_upgrades)
-    option2 = random.choice(all_upgrades)
+    option1 = random.choice(pool)
+    option2 = random.choice(pool)
     while option2.name == option1.name:  # avoid duplicate options
-        option2 = random.choice(all_upgrades)
+        option2 = random.choice(pool)
 
     return [option1, option2]
